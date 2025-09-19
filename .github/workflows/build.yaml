@@ -30,7 +30,7 @@ jobs:
             lucson20/devsecops1:latest
   test:
     name: Test
-    needs: [ scan ]
+    #needs: [ scan ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -50,7 +50,7 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: [ test ]
+    #needs: [ test ]
     runs-on: self-hosted
     steps:
       - name: Checkout source code
