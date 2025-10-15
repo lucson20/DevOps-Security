@@ -85,7 +85,7 @@ jobs:
         uses: actions/checkout@v4  
 
       - name: Check vulnerabilities before deploy
-      - run: |
+        run: |
               echo "Checking for HIGH/CRITICAL vulnerabilities before deploy..."
               docker scout cves lucson20/devsecops1:latest --only-severities critical,high --exit-code --exit-on vulnerability
               echo "Deploying to Kubernetes..."
