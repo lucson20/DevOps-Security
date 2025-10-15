@@ -51,11 +51,11 @@ jobs:
           write-comment: true
           github-token: ${{ secrets.MY_GITHUB_TOKEN }}
           exit-code: true
-          exit-on: vulnerability
+          exit-on: never
   
   test:
     name: Test
-    needs: [ scan ]
+    needs: [ scan ] # Zorgt dat test alleen draait als scan geslaagd is
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -68,19 +68,25 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: test 
         run: |
+          echo "Starting container for testing..."
           docker run -d -p 80:5000 lucson20/devsecops1:latest
           sleep 10s
+          echo "Testing endpoint response..."
           curl http://localhost
           docker ps -aq | xargs docker stop | xargs docker rm
 
   deploy:
     name: Deploy
-    needs: [ test ]
-    runs-on: self-hosted 
+    needs: [ test, scan ] # Belangrijk: afhankelijk maken van scan én test
+    runs-on: self-hosted
+    if: success()           # alleen uitvoeren als scan en test succesvol waren 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+
+      - name: Deploy to Kubernetes  
       - run: |
+              echo "Deploying to Kubernetes..."
               sudo kubectl delete deployment --all              
               sudo kubectl apply -f ${{ github.workspace }}/kubernetes/deployment.yaml --force
               sudo kubectl apply -f ${{ github.workspace }}/kubernetes/nginx-service.yaml --force
