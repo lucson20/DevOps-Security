@@ -51,7 +51,7 @@ jobs:
           write-comment: true
           github-token: ${{ secrets.MY_GITHUB_TOKEN }}
           exit-code: true
-          exit-on: never
+          exit-on: none
   
   test:
     name: Test
@@ -83,8 +83,12 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4  
+
+      - name: Check vulnerabilities before deploy
       - run: |
+              echo "Checking for HIGH/CRITICAL vulnerabilities before deploy..."
+              docker scout cves lucson20/devsecops1:latest --only-severities critical,high --exit-code --exit-on vulnerability
               echo "Deploying to Kubernetes..."
               sudo kubectl delete deployment --all              
               sudo kubectl apply -f ${{ github.workspace }}/kubernetes/deployment.yaml --force
-              sudo kubectl apply -f ${{ github.workspace }}/kubernetes/nginx-service.yaml --force
+              sudo kubectl apply -f ${{ github.workspace }}/kubernetes/nginx-service.yaml --force        
