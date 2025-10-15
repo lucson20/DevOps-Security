@@ -82,9 +82,7 @@ jobs:
     if: success()           # alleen uitvoeren als scan en test succesvol waren 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Kubernetes  
+        uses: actions/checkout@v4  
       - run: |
               echo "Deploying to Kubernetes..."
               sudo kubectl delete deployment --all              
