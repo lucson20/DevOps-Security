@@ -95,7 +95,7 @@ jobs:
 
   automated-api-tests:
     name: Automated API tests using Postman CLI
-    needs: [ deploy, scan ]
+    needs: [ deploy ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
