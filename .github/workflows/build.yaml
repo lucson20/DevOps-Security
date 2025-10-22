@@ -108,4 +108,4 @@ jobs:
         run: |
           postman collection run "45323814-30cb6873-97b8-4328-84e4-07261962962a" --integration-id "182020-${{ github.run_id }}" || true
           # Lint your API using Postman CLI
-          postman api lint 444d0b01-52c2-4fce-b8df-057e37547cba --integration-id 182020 
+          postman api lint 444d0b01-52c2-4fce-b8df-057e37547cba --integration-id 182020
