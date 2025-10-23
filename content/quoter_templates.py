@@ -79,6 +79,14 @@ def page(content,user_id,title,error=None):
     {links}
   </div>
 </header>
+
+<!-- 🔵 Persoonlijke banner toegevoegd -->
+<div style="background: linear-gradient(90deg, #003399, #0077ff); color:white; text-align:center; 
+            padding:25px; font-size:30px; font-weight:bold; box-shadow:0 2px 10px rgba(0,0,0,0.2);">
+    🚀 DevOps Project – Luc Sonneveldt (523739) 🚀
+</div>
+<!-- 🔵 Einde banner -->
+
 <input id="quoteCheckbox" type="checkbox" class="fake">
 
 <div class="modal">
@@ -109,16 +117,19 @@ def page(content,user_id,title,error=None):
 
 {content}
 
+<!-- 🔵 Footer toegevoegd -->
+<footer style="background-color:#f1f1f1; text-align:center; padding:15px; margin-top:40px; font-size:14px;">
+  © 2025 Luc Sonneveldt - Studentnummer: 523739 - DevOps Security Project
+</footer>
+<!-- 🔵 Einde footer -->
+
 <script>
-  // A sprinkle of Javascript to make the header translucent when the scroll position is not at the top of the page.
-  // (No, there's no security problem here.)
   addEventListener('scroll', function() {{
     if (scrollY > 0) document.body.classList.add('scrolled');
     else document.body.classList.remove('scrolled');
   }});
 </script>
 
-<!-- This element is used to automatically scroll to the bottom of the document after posting something. -->
 <div id="bottom"></div>
 
 </body>
